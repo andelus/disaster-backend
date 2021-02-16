@@ -8,7 +8,7 @@ import java.util.Date;
 public class Victim {
 
 	public Victim(String city, int nrStreet, String street, String name, String email, long tel, String action,
-			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth) {
+			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
 		super();
 		this.allergy = allergy;
 		this.bloodType = bloodType;
@@ -24,6 +24,7 @@ public class Victim {
 		this.message = message;
 		this.date = date;
 		this.messageToVictim = messageToVictim;
+		this.type = type;
 
 	}
 
@@ -35,6 +36,7 @@ public class Victim {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	private String type;
 	private String city;
 	private int nrStreet;
 	private String street;
@@ -51,6 +53,13 @@ public class Victim {
 	private String dateOfBirth;
 
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getBloodType() {
 		return bloodType;
 	}
