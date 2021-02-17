@@ -8,8 +8,12 @@ import java.util.Date;
 public class Victim {
 
 	public Victim(String city, int nrStreet, String street, String name, String email, long tel, String action,
-			String message, Date date, String messageToVictim) {
+			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
 		super();
+		this.allergy = allergy;
+		this.bloodType = bloodType;
+		this.dateOfBirth = dateOfBirth;
+		this.description = description;
 		this.city = city;
 		this.nrStreet = nrStreet;
 		this.street = street;
@@ -20,6 +24,8 @@ public class Victim {
 		this.message = message;
 		this.date = date;
 		this.messageToVictim = messageToVictim;
+		this.type = type;
+
 	}
 
 	public Victim() {
@@ -30,6 +36,7 @@ public class Victim {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	private String type;
 	private String city;
 	private int nrStreet;
 	private String street;
@@ -40,6 +47,50 @@ public class Victim {
 	private String message;
 	private String messageToVictim;
 	private Date date;
+	private String bloodType;
+	private String allergy;
+	private String description;
+	private String dateOfBirth;
+
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getBloodType() {
+		return bloodType;
+	}
+
+	public void setBloodType(String bloodType) {
+		this.bloodType = bloodType;
+	}
+
+	public String getAllergy() {
+		return allergy;
+	}
+
+	public void setAllergy(String allergy) {
+		this.allergy = allergy;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 
 	public String getCity() {
 		return city;
