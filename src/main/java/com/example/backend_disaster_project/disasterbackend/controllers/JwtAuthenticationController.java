@@ -4,7 +4,8 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 import com.example.backend_disaster_project.disasterbackend.config.JwtTokenUtil;
 import com.example.backend_disaster_project.disasterbackend.entities.JwtRequest;
 import com.example.backend_disaster_project.disasterbackend.entities.JwtResponse;
-import com.example.backend_disaster_project.disasterbackend.entities.UserDTO;
+import com.example.backend_disaster_project.disasterbackend.entities.RescueHelperDB;
+import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
 import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +43,9 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> saveUser(@RequestBody UserDTO user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+	@PostMapping("/registerRescueHelper")
+	public ResponseEntity<?> saveUser(@RequestBody RescueHelperDB user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.saveRescueHelper(user));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
@@ -56,4 +57,10 @@ public class JwtAuthenticationController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
+
+	@PostMapping("/registerVictim")
+	public ResponseEntity<?> saveVictim(@RequestBody VictimDB user) throws Exception {
+		return ResponseEntity.ok(userDetailsService.saveVictim(user));
+	}
+
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RescueHelperRepository extends JpaRepository<RescueHelper, Long> {
-
+    RescueHelper findByUsername(String username);
 }
