@@ -5,11 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "rescueHelpers")
 public class RescueHelper {
-
-    public RescueHelper() {
-
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
