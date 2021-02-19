@@ -6,7 +6,7 @@ import java.util.Date;
 public class VictimDB {
 
     public VictimDB(String username,String password,String city, int nrStreet, String street, String name, String email, long tel, String action,
-                    String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
+                  String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
         super();
         this.password = password;
         this.username = username;
