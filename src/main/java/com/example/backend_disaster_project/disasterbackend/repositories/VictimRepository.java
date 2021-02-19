@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VictimRepository extends JpaRepository<Victim, Long> {
-
+    Victim findByUsername(String username);
 }

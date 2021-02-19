@@ -15,7 +15,7 @@ public class SOSController {
 	@Autowired
 	private SosRepository sosRepository;
 	
-	@GetMapping("sos")
+	@GetMapping("/sos")
 	public Iterable<SOS> getSOS(){
 		return this.sosRepository.findAll();
 	}
@@ -25,15 +25,16 @@ public class SOSController {
 		return sosRepository.save(sos);
 	}
 
-	@GetMapping("/sos/{id}")
-	public ResponseEntity<SOS> getSosById(@PathVariable long id){
-		SOS sos = sosRepository.findById(id).orElseThrow(null);
+	@GetMapping("/sos/{ipAddress}")
+	public ResponseEntity<SOS> getSosByIpAddress(@PathVariable long ipAddress){
+		SOS sos = sosRepository.findByIpAddress(ipAddress);
 		return  ResponseEntity.ok(sos);
 	}
 
-	@PutMapping("/sos/{id}")
-	public ResponseEntity<SOS> updateSosMessage(@PathVariable Long id, @RequestBody SOS sosDetails){
-		SOS sos = sosRepository.findById(id).orElseThrow(null);
+    // you can update whatever you like, just change here
+	@PutMapping("/sos/{ipAddress}")
+	public ResponseEntity<SOS> updateSosMessage(@PathVariable Long ipAddress, @RequestBody SOS sosDetails){
+		SOS sos = sosRepository.findByIpAddress(ipAddress);
 		sos.setMessageToSOS(sosDetails.getMessageToSOS());
 
 		SOS updatedSOS = sosRepository.save(sos);

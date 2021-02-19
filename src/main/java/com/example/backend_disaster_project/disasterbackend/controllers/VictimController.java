@@ -20,20 +20,15 @@ public class VictimController {
 	public Iterable<Victim> getVictims() {
 		return this.victimRepository.findAll();
 	}
-	
-	@PostMapping("/victims")
-	public Victim createVictim(@RequestBody Victim victim) {
-		return this.victimRepository.save(victim);
-	}
 
-	@GetMapping("/victims/{id}")
-	public ResponseEntity<Victim> getVictimById(@PathVariable long id){
-		Victim victim = victimRepository.findById(id).orElseThrow(null);
+	@GetMapping("/victims/{username}")
+	public ResponseEntity<Victim> getVictimByUsername(@PathVariable String username){
+		Victim victim = victimRepository.findByUsername(username);
 		return  ResponseEntity.ok(victim);
 	}
-	@PutMapping("/victims/{id}")
-	public ResponseEntity<Victim> updateVictimMessage(@PathVariable Long id, @RequestBody Victim victimDetails){
-		Victim victim = victimRepository.findById(id).orElseThrow(null);
+	@PutMapping("/victims/{username}")
+	public ResponseEntity<Victim> updateVictimMessage(@PathVariable String username, @RequestBody Victim victimDetails){
+		Victim victim = victimRepository.findByUsername(username);
 		victim.setMessageToVictim(victimDetails.getMessageToVictim());
 
 		Victim updatedVictim = victimRepository.save(victim);
