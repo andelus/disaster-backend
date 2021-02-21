@@ -42,6 +42,17 @@ public class RescueHelper {
     @Column
     @JsonIgnore
     private String password;
+//    private String resetPasswordRescueHelperToken;
+//
+//
+//    public String getResetPasswordRescueHelperToken() {
+//        return resetPasswordRescueHelperToken;
+//    }
+//
+//    public void setResetPasswordRescueHelperToken(String resetPasswordToken) {
+//        this.resetPasswordRescueHelperToken = resetPasswordToken;
+//    }
+
 
 
     public String getUsername() {

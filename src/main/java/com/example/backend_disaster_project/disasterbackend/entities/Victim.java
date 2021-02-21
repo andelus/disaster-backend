@@ -30,11 +30,14 @@ public class Victim {
 		this.messageToVictim = messageToVictim;
 		this.type = type;
 
+
 	}
 
 	public Victim() {
 
 	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -61,6 +64,33 @@ public class Victim {
 	private String allergy;
 	private String description;
 	private String dateOfBirth;
+	private String emailVerificationToken;
+
+	public String getEmailVerificationToken() {
+		return emailVerificationToken;
+	}
+
+	public void setEmailVerificationToken(String emailVerificationToken) {
+		this.emailVerificationToken = emailVerificationToken;
+	}
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+//	private String resetPasswordVictimToken;
+//
+//
+//	public String getResetPasswordVictimToken() {
+//		return resetPasswordVictimToken;
+//	}
+//
+//	public void setResetPasswordVictimToken(String resetPasswordToken) {
+//		this.resetPasswordVictimToken = resetPasswordToken;
+//	}
 
 	public String getUsername() {
 		return username;

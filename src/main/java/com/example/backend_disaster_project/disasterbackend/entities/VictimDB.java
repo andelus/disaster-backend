@@ -27,6 +27,9 @@ public class VictimDB {
         this.type = type;
 
     }
+
+
+    private String userId;
     private String username;
     private String password;
     private String type;
@@ -44,6 +47,24 @@ public class VictimDB {
     private String allergy;
     private String description;
     private String dateOfBirth;
+    private String emailVerificationToken;
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
+    }
+
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
+    }
 
     public String getUsername() {
         return username;
