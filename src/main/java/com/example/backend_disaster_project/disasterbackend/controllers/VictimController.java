@@ -22,9 +22,9 @@ public class VictimController {
 	}
 
 	@GetMapping("/victims/{username}")
-	public ResponseEntity<Victim> getVictimByUsername(@PathVariable String username){
+	public ResponseEntity<String> getVictimByUsername(@PathVariable String username){
 		Victim victim = victimRepository.findByUsername(username);
-		return  ResponseEntity.ok(victim);
+		return  ResponseEntity.ok(victim.getMessageToVictim());
 	}
 	@PutMapping("/victims/{username}")
 	public ResponseEntity<Victim> updateVictimMessage(@PathVariable String username, @RequestBody Victim victimDetails){
