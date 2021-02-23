@@ -34,6 +34,19 @@ public class VictimController {
 		Victim updatedVictim = victimRepository.save(victim);
 		return ResponseEntity.ok(updatedVictim);
 	}
+	@PutMapping("/victimsMessage/{username}")
+	public ResponseEntity<Victim> updateFromVictimMessage(@PathVariable String username, @RequestBody Victim victimDetails){
+		Victim victim = victimRepository.findByUsername(username);
+		victim.setMessage(victimDetails.getMessage());
+
+		Victim updatedVictim = victimRepository.save(victim);
+		return ResponseEntity.ok(updatedVictim);
+	}
+
+	@DeleteMapping("/delete")
+	public void delete(){
+		victimRepository.deleteAll();
+	}
 
 
 }

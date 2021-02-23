@@ -8,14 +8,11 @@ import java.util.Date;
 
 public class SOS {
 
-	public SOS(double latitude, double longtitude, long ipAddress, String message, String messageToSOS, Date date,String type) {
+	public SOS(double latitude, double longtitude, String date,String type) {
 		super();
 		this.latitude = latitude;
 		this.longtitude = longtitude;
-		this.ipAddress = ipAddress;
-		this.message = message;
-		this.messageToSOS = messageToSOS;
-		this.date = date;
+		this.dateOfSos = date;
 		this.type = type;
 
 	}
@@ -30,11 +27,8 @@ public class SOS {
 
 	private double latitude;
 	private double longtitude;
-	private long ipAddress;
-	private String message;
 	private String type;
-	private String messageToSOS;
-	private Date date;
+	private String dateOfSos;
 
 	public String getType() {
 		return type;
@@ -59,35 +53,12 @@ public class SOS {
 		this.longtitude = longtitude;
 	}
 
-	public long getIpAddress() {
-		return ipAddress;
+	public String getDate() {
+		return dateOfSos;
 	}
 
-	public void setIpAddress(long ipAddress) {
-		this.ipAddress = ipAddress;
+	public void setDate(String date) {
+		this.dateOfSos = date;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getMessageToSOS() {
-		return messageToSOS;
-	}
-
-	public void setMessageToSOS(String messageToSOS) {
-		this.messageToSOS = messageToSOS;
-	}
 }

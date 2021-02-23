@@ -25,20 +25,9 @@ public class SOSController {
 		return sosRepository.save(sos);
 	}
 
-	@GetMapping("/sos/{ipAddress}")
-	public ResponseEntity<SOS> getSosByIpAddress(@PathVariable long ipAddress){
-		SOS sos = sosRepository.findByIpAddress(ipAddress);
-		return  ResponseEntity.ok(sos);
-	}
-
-    // you can update whatever you like, just change here
-	@PutMapping("/sos/{ipAddress}")
-	public ResponseEntity<SOS> updateSosMessage(@PathVariable Long ipAddress, @RequestBody SOS sosDetails){
-		SOS sos = sosRepository.findByIpAddress(ipAddress);
-		sos.setMessageToSOS(sosDetails.getMessageToSOS());
-
-		SOS updatedSOS = sosRepository.save(sos);
-		return ResponseEntity.ok(updatedSOS);
+	@DeleteMapping("/deleteSos")
+	public void delete(){
+		sosRepository.deleteAll();
 	}
 	
 }
