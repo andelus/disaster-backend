@@ -1,6 +1,7 @@
 package com.example.backend_disaster_project.disasterbackend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,14 +25,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 	@Autowired
+	@Qualifier(value="quick")
 	private UserDetailsService jwtUserDetailsService;
+
+//	@Autowired
+//	@Qualifier(value="slow")
+//	private UserDetailsService jwtDetailsService;
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
 
 	@Autowired
+	private JwtRequestFilterRescueHelper jwtRequestFilterRescueHelper;
+
+	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+		//auth.userDetailsService(jwtDetailsService).passwordEncoder(passwordEncoder());
+
 	}
 
 	@Bean
@@ -49,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 		httpSecurity.cors().and().csrf().disable()
-				.authorizeRequests().antMatchers("/api/authenticate", "/api/registerRescueHelper","/api/registerVictim","/api/sos","/api/sos/**").permitAll().
+				.authorizeRequests().antMatchers("/api/authenticateVictim","/api/authenticateRescueHelper", "/api/registerRescueHelper","/api/registerVictim","/api/sos","/api/sos/**").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
@@ -57,5 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+	//	httpSecurity.addFilterBefore(jwtRequestFilterRescueHelper, UsernamePasswordAuthenticationFilter.class);
+
 	}
 }

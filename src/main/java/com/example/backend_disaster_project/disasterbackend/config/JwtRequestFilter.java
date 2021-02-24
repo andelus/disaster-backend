@@ -1,7 +1,7 @@
 package com.example.backend_disaster_project.disasterbackend.config;
 
 
-import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetailsService;
+import com.example.backend_disaster_project.disasterbackend.service.JwtVictimDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +21,7 @@ import java.io.IOException;
 public class JwtRequestFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JwtUserDetailsService jwtUserDetailsService;
+	private JwtVictimDetailsService jwtVictimDetailsService;
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
@@ -52,7 +52,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		// Once we get the token validate it.
 		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-			UserDetails userDetails = this.jwtUserDetailsService.loadUserByUsername(username);
+			UserDetails userDetails = this.jwtVictimDetailsService.loadUserByUsername(username);
 
 			// if token is valid configure Spring Security to manually set
 			// authentication

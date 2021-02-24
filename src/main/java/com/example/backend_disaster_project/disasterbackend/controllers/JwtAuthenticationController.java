@@ -6,8 +6,10 @@ import com.example.backend_disaster_project.disasterbackend.entities.JwtRequest;
 import com.example.backend_disaster_project.disasterbackend.entities.JwtResponse;
 import com.example.backend_disaster_project.disasterbackend.entities.RescueHelperDB;
 import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
-import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetailsService;
+import com.example.backend_disaster_project.disasterbackend.service.JwtRescueHelperDetailsService;
+import com.example.backend_disaster_project.disasterbackend.service.JwtVictimDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -28,14 +30,31 @@ public class JwtAuthenticationController {
 	private JwtTokenUtil jwtTokenUtil;
 
 	@Autowired
-	private JwtUserDetailsService userDetailsService;
+	private JwtVictimDetailsService victimDetailsService;
 
-	@PostMapping(value = "/authenticate")
+	@Autowired
+	private JwtRescueHelperDetailsService rescueHelperDetailsService;
+
+
+	@PostMapping(value = "/authenticateVictim")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
-		final UserDetails userDetails = userDetailsService
+		final UserDetails userDetails = victimDetailsService
+				.loadUserByUsername(authenticationRequest.getUsername());
+
+		final String token = jwtTokenUtil.generateToken(userDetails);
+
+		return ResponseEntity.ok(new JwtResponse(token));
+	}
+
+	@PostMapping(value = "/authenticateRescueHelper")
+	public ResponseEntity<?> createAuthenticationTokenForRescue(@RequestBody JwtRequest authenticationRequest) throws Exception {
+
+		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+
+		final UserDetails userDetails = victimDetailsService
 				.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails);
@@ -45,7 +64,7 @@ public class JwtAuthenticationController {
 	
 	@PostMapping("/registerRescueHelper")
 	public ResponseEntity<?> saveUser(@RequestBody RescueHelperDB user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.saveRescueHelper(user));
+		return ResponseEntity.ok(rescueHelperDetailsService.saveRescueHelper(user));
 	}
 
 	private void authenticate(String username, String password) throws Exception {
@@ -60,7 +79,7 @@ public class JwtAuthenticationController {
 
 	@PostMapping("/registerVictim")
 	public ResponseEntity<?> saveVictim(@RequestBody VictimDB user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.saveVictim(user));
+		return ResponseEntity.ok(victimDetailsService.saveVictim(user));
 	}
 
 }
