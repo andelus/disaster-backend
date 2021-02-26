@@ -43,9 +43,10 @@ public class VictimController {
 		return ResponseEntity.ok(updatedVictim);
 	}
 
-	@DeleteMapping("/delete")
-	public void delete(){
-		victimRepository.deleteAll();
+	@DeleteMapping("/delete/{username}")
+	public void delete(@PathVariable String username){
+		Victim victim = victimRepository.findByUsername(username);
+		victimRepository.delete(victim);
 	}
 
 

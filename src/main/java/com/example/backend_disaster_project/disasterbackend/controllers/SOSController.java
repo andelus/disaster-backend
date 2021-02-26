@@ -2,10 +2,13 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 
 
 import com.example.backend_disaster_project.disasterbackend.entities.SOS;
+import com.example.backend_disaster_project.disasterbackend.entities.Victim;
 import com.example.backend_disaster_project.disasterbackend.repositories.SosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/")
@@ -28,6 +31,12 @@ public class SOSController {
 	@DeleteMapping("/deleteSos")
 	public void delete(){
 		sosRepository.deleteAll();
+	}
+
+	@DeleteMapping("/sos/delete/{latitude}")
+	public void delete(@PathVariable Double latitude){
+		SOS sos = sosRepository.findByLatitude(latitude);
+		sosRepository.delete(sos);
 	}
 	
 }

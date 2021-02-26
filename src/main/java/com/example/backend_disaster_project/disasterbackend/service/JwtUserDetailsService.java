@@ -45,7 +45,6 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	}
 
-
 	
 	public RescueHelper saveRescueHelper(RescueHelperDB user) {
 		RescueHelper newUser = new RescueHelper();
