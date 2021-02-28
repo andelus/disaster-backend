@@ -1,7 +1,5 @@
 package com.example.backend_disaster_project.disasterbackend.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,10 +7,9 @@ import java.util.Date;
 @Table(name = "victims")
 public class Victim {
 
-	public Victim(String username,String password,String city, int nrStreet, String street, String name, String email, long tel, String action,
-			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
+	public Victim(String username, String city, int nrStreet, String street, String name, String email, long tel, String action,
+				  String message, Date date, String messageToVictim, String bloodType, String allergy, String description, String dateOfBirth, String type, String disaster) {
 		super();
-		this.password = password;
 		this.username = username;
 		this.allergy = allergy;
 		this.bloodType = bloodType;
@@ -29,7 +26,7 @@ public class Victim {
 		this.date = date;
 		this.messageToVictim = messageToVictim;
 		this.type = type;
-
+		this.disaster = disaster;
 	}
 
 	public Victim() {
@@ -42,9 +39,6 @@ public class Victim {
 
 	@Column
 	private String username;
-	@Column
-	@JsonIgnore
-	private String password;
 
 	private String type;
 	private String city;
@@ -62,6 +56,8 @@ public class Victim {
 	private String description;
 	private String dateOfBirth;
 
+	private String disaster;
+
 	public String getUsername() {
 		return username;
 	}
@@ -70,14 +66,13 @@ public class Victim {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getDisaster() {
+		return disaster;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setDisaster(String disaster) {
+		this.disaster = disaster;
 	}
-
 	public String getType() {
 		return type;
 	}

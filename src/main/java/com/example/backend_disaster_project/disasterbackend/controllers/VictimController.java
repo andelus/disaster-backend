@@ -2,6 +2,7 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 
 
 import com.example.backend_disaster_project.disasterbackend.entities.Victim;
+import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
 import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,19 @@ public class VictimController {
 	public void delete(@PathVariable String username){
 		Victim victim = victimRepository.findByUsername(username);
 		victimRepository.delete(victim);
+	}
+	@PostMapping("/registerVictim")
+	public ResponseEntity<?> saveVictim(@RequestBody Victim user) throws Exception {
+		return ResponseEntity.ok(victimRepository.save(user));
+	}
+
+	@PutMapping("/disaster/{username}")
+	public ResponseEntity<Victim> updateDisaster(@PathVariable String disaster, @RequestBody Victim victimDetails){
+		Victim victim = victimRepository.findByUsername(disaster);
+		victim.setDisaster(victimDetails.getDisaster());
+
+		Victim updatedVictim = victimRepository.save(victim);
+		return ResponseEntity.ok(updatedVictim);
 	}
 
 

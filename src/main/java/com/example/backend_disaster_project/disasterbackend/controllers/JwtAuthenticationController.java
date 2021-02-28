@@ -58,9 +58,4 @@ public class JwtAuthenticationController {
 		}
 	}
 
-	@PostMapping("/registerVictim")
-	public ResponseEntity<?> saveVictim(@RequestBody VictimDB user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.saveVictim(user));
-	}
-
 }
