@@ -22,10 +22,10 @@ public class VictimController {
 		return this.victimRepository.findAll();
 	}
 
-	@GetMapping("/victims/{username}")
-	public ResponseEntity<String> getVictimByUsername(@PathVariable String username){
+	@GetMapping("/message/{username}")
+	public String getMessageByUsername(@PathVariable String username){
 		Victim victim = victimRepository.findByUsername(username);
-		return  ResponseEntity.ok(victim.getMessageToVictim());
+		return  victim.getMessageToVictim();
 	}
 	@PutMapping("/victims/{username}")
 	public ResponseEntity<Victim> updateVictimMessage(@PathVariable String username, @RequestBody Victim victimDetails){
@@ -55,13 +55,14 @@ public class VictimController {
 	}
 
 	@PutMapping("/disaster/{username}")
-	public ResponseEntity<Victim> updateDisaster(@PathVariable String disaster, @RequestBody Victim victimDetails){
-		Victim victim = victimRepository.findByUsername(disaster);
+	public ResponseEntity<Victim> updateDisaster(@PathVariable String username, @RequestBody Victim victimDetails){
+		Victim victim = victimRepository.findByUsername(username);
 		victim.setDisaster(victimDetails.getDisaster());
 
 		Victim updatedVictim = victimRepository.save(victim);
 		return ResponseEntity.ok(updatedVictim);
 	}
+
 
 
 }

@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
 		httpSecurity.cors().and().csrf().disable()
-				.authorizeRequests().antMatchers("/api/authenticate", "/api/registerRescueHelper","/api/registerVictim","/api/sos","/api/sos/**").permitAll().
+				.authorizeRequests().antMatchers("/api/authenticate", "/api/registerRescueHelper","/api/registerVictim","/api/sos","/api/sos/**","/api/victimsMessage/**","/api/message/**","/api/disaster/**").permitAll().
 				// all other requests need to be authenticated
 				anyRequest().authenticated().and().
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
