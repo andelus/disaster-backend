@@ -6,8 +6,10 @@ import com.example.backend_disaster_project.disasterbackend.entities.JwtRequest;
 import com.example.backend_disaster_project.disasterbackend.entities.JwtResponse;
 import com.example.backend_disaster_project.disasterbackend.entities.RescueHelperDB;
 import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
+import com.example.backend_disaster_project.disasterbackend.repositories.RescueHelperRepository;
 import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -30,6 +32,9 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtUserDetailsService userDetailsService;
 
+	@Autowired
+	private RescueHelperRepository userRepository;
+
 	@PostMapping(value = "/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
 
@@ -44,7 +49,11 @@ public class JwtAuthenticationController {
 	}
 	
 	@PostMapping("/registerRescueHelper")
-	public ResponseEntity<?> saveUser(@RequestBody RescueHelperDB user) throws Exception {
+	public ResponseEntity saveUser(@RequestBody RescueHelperDB user) throws Exception {
+		if(userRepository.existsByUsername(user.getUsername())==true){
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error Message");
+		}
+
 		return ResponseEntity.ok(userDetailsService.saveRescueHelper(user));
 	}
 

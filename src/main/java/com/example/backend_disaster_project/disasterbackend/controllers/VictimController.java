@@ -5,6 +5,7 @@ import com.example.backend_disaster_project.disasterbackend.entities.Victim;
 import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
 import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,6 +52,9 @@ public class VictimController {
 	}
 	@PostMapping("/registerVictim")
 	public ResponseEntity<?> saveVictim(@RequestBody Victim user) throws Exception {
+		if(victimRepository.existsByUsername(user.getUsername())==true){
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error Message");
+		}
 		return ResponseEntity.ok(victimRepository.save(user));
 	}
 

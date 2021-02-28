@@ -17,4 +17,6 @@ public class RescueHelperController {
     public RescueHelper createSOS(@RequestBody RescueHelper rescueHelper) {
         return rescueHelperRepository.save(rescueHelper);
     }
+
+
 }

@@ -37,7 +37,8 @@ public class RescueHelper {
     private String description;
     private long phoneNumber;
     private String profession;
-    @Column
+
+    @Column(unique = true)
     private String username;
     @Column
     @JsonIgnore
