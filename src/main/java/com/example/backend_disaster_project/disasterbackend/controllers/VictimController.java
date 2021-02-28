@@ -2,6 +2,7 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 
 
 import com.example.backend_disaster_project.disasterbackend.entities.Victim;
+import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
 import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ public class VictimController {
 		return this.victimRepository.findAll();
 	}
 
-	@GetMapping("/victims/{username}")
-	public ResponseEntity<String> getVictimByUsername(@PathVariable String username){
+	@GetMapping("/message/{username}")
+	public String getMessageByUsername(@PathVariable String username){
 		Victim victim = victimRepository.findByUsername(username);
-		return  ResponseEntity.ok(victim.getMessageToVictim());
+		return  victim.getMessageToVictim();
 	}
 	@PutMapping("/victims/{username}")
 	public ResponseEntity<Victim> updateVictimMessage(@PathVariable String username, @RequestBody Victim victimDetails){
@@ -43,10 +44,25 @@ public class VictimController {
 		return ResponseEntity.ok(updatedVictim);
 	}
 
-	@DeleteMapping("/delete")
-	public void delete(){
-		victimRepository.deleteAll();
+	@DeleteMapping("/delete/{username}")
+	public void delete(@PathVariable String username){
+		Victim victim = victimRepository.findByUsername(username);
+		victimRepository.delete(victim);
 	}
+	@PostMapping("/registerVictim")
+	public ResponseEntity<?> saveVictim(@RequestBody Victim user) throws Exception {
+		return ResponseEntity.ok(victimRepository.save(user));
+	}
+
+	@PutMapping("/disaster/{username}")
+	public ResponseEntity<Victim> updateDisaster(@PathVariable String username, @RequestBody Victim victimDetails){
+		Victim victim = victimRepository.findByUsername(username);
+		victim.setDisaster(victimDetails.getDisaster());
+
+		Victim updatedVictim = victimRepository.save(victim);
+		return ResponseEntity.ok(updatedVictim);
+	}
+
 
 
 }

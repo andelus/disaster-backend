@@ -32,19 +32,14 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		RescueHelper user = userDao.findByUsername(username);
 		Victim user1 = userDao1.findByUsername(username);
-		if (user == null && user1 == null) {
+		if (user == null ) {
 			throw new UsernameNotFoundException("User not found with username: " + username);
 		}
-		if (user != null && user1 == null){
-		return new User(user.getUsername(), user.getPassword(),
-				new ArrayList<>());
-		}
 
-		return new User(user1.getUsername(), user1.getPassword(),
+		return new User(user.getUsername(), user.getPassword(),
 				new ArrayList<>());
 
 	}
-
 
 	
 	public RescueHelper saveRescueHelper(RescueHelperDB user) {
@@ -65,7 +60,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 	public Victim saveVictim(VictimDB user) {
 		Victim newUser = new Victim();
 		newUser.setUsername(user.getUsername());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
+		//newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setAction(user.getAction());
 		newUser.setAllergy(user.getAllergy());
 		newUser.setBloodType(user.getBloodType());
