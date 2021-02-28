@@ -10,9 +10,8 @@ import java.util.Optional;
 @Repository
 public interface VictimRepository extends JpaRepository<Victim, Long> {
     Victim findByUsername(String username);
-    Optional<Victim> findByEmail(String email);
-//    Victim findByResetPasswordVictimToken(String token);
-    Victim findUserByEmailVerificationToken(String token);
+    Victim findByEmail(String email);
+
 
 
 

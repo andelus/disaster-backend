@@ -34,6 +34,10 @@ public class VictimController {
 		Victim updatedVictim = victimRepository.save(victim);
 		return ResponseEntity.ok(updatedVictim);
 	}
+	@DeleteMapping("delete")
+	public void delete(){
+		victimRepository.deleteAll();
+	}
 
 
 }

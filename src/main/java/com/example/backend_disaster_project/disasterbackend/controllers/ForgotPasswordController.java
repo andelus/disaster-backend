@@ -1,9 +1,6 @@
 package com.example.backend_disaster_project.disasterbackend.controllers;
 
-import com.example.backend_disaster_project.disasterbackend.entities.JwtRequest;
-import com.example.backend_disaster_project.disasterbackend.entities.RequestPasswordResetModel;
-import com.example.backend_disaster_project.disasterbackend.entities.ResetPasswordModel;
-import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
+import com.example.backend_disaster_project.disasterbackend.entities.*;
 import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
 import com.example.backend_disaster_project.disasterbackend.service.EmailService;
 import com.example.backend_disaster_project.disasterbackend.service.InvalidTokenException;
@@ -11,6 +8,7 @@ import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetai
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,11 +33,16 @@ public class ForgotPasswordController {
     @PostMapping(path = "/request-password-reset")
     public ResponseEntity<Void> requestPasswordReset(@RequestBody @Valid RequestPasswordResetModel passwordResetRequestModel, JwtRequest authenticationRequest) {
         // get user details
-        VictimDB userDto = authService.getUserByEmail(passwordResetRequestModel.getEmail());
+        Victim userDto = userRepo.findByEmail(passwordResetRequestModel.getEmail());
         // get token
-        String token = authService.getRequestPasswordToken(userDto,authenticationRequest);
+
+
+
+        String token = authService.getRequestPasswordToken(userDto);
+
         // save token
         authService.saveRequestPasswordToken(token, userDto);
+        System.out.println(token);
         // send email
         emailService.sendPasswordResetEmail(userDto, token);
 

@@ -1,16 +1,20 @@
 package com.example.backend_disaster_project.disasterbackend.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.source.doctree.SerialDataTree;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "victims")
-public class Victim {
+public class Victim implements Serializable {
+
+	private static final long serialVersionUID = -8836056693631358014L;
 
 	public Victim(String username,String password,String city, int nrStreet, String street, String name, String email, long tel, String action,
-			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
+			String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type,String userId) {
 		super();
 		this.password = password;
 		this.username = username;
@@ -29,6 +33,7 @@ public class Victim {
 		this.date = date;
 		this.messageToVictim = messageToVictim;
 		this.type = type;
+		this.userId = userId;
 
 
 	}
@@ -65,6 +70,15 @@ public class Victim {
 	private String description;
 	private String dateOfBirth;
 	private String emailVerificationToken;
+	private String userId;
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 	public String getEmailVerificationToken() {
 		return emailVerificationToken;
@@ -80,17 +94,6 @@ public class Victim {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-//	private String resetPasswordVictimToken;
-//
-//
-//	public String getResetPasswordVictimToken() {
-//		return resetPasswordVictimToken;
-//	}
-//
-//	public void setResetPasswordVictimToken(String resetPasswordToken) {
-//		this.resetPasswordVictimToken = resetPasswordToken;
-//	}
 
 	public String getUsername() {
 		return username;

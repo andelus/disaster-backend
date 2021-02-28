@@ -18,7 +18,8 @@ public class PasswordResetTokenEntity implements Serializable {
     private String token;
 
 
-    @OneToOne()
+    @OneToOne(cascade = {CascadeType.ALL})
+
     @JoinColumn(name = "user_id")
     private Victim userDetails;
 

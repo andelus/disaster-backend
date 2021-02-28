@@ -1,5 +1,6 @@
 package com.example.backend_disaster_project.disasterbackend.service;
 
+import com.example.backend_disaster_project.disasterbackend.entities.Victim;
 import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
 import com.example.backend_disaster_project.disasterbackend.properties.EmailProperties;
 import freemarker.template.Configuration;
@@ -45,13 +46,13 @@ public class EmailServiceImpl implements EmailService{
 
     @Override
     @Async("threadPoolEmailTask")
-    public void sendPasswordResetEmail(VictimDB userDto, String token) {
+    public void sendPasswordResetEmail(Victim userDto, String token) {
         // prepare email meta data
         String recipientAddress = userDto.getEmail();
         String subject = emailProperties.getSubjectPasswordReset();
         // confirmationUrl - front end url, shows form for password reset.
         String confirmationUrl = emailProperties.getUrlPasswordReset() + token;
-        String body = getEmailBody(confirmationUrl, userDto.getName(), "password-reset-request.ftl");
+        String body = confirmationUrl;
         // send email
         sendEmail(recipientAddress, subject, body);
     }
