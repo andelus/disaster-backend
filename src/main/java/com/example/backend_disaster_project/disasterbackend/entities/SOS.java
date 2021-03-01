@@ -8,12 +8,13 @@ import java.util.Date;
 
 public class SOS {
 
-	public SOS(double latitude, double longtitude, String date,String type) {
+	public SOS(double latitude, double longtitude, String date,String type, int timer) {
 		super();
 		this.latitude = latitude;
 		this.longtitude = longtitude;
 		this.dateOfSos = date;
 		this.type = type;
+		this.timer = timer;
 
 	}
 
@@ -27,12 +28,16 @@ public class SOS {
 
 	private double latitude;
 	private double longtitude;
+	private int timer;
 	private String type;
 	private String dateOfSos;
 
 	public String getType() {
 		return type;
 	}
+
+	public int getTimer(){return this.timer;}
+	public void setTimer(int timer){this.timer = timer;}
 
 	public void setType(String type) {
 		this.type = type;
@@ -60,5 +65,7 @@ public class SOS {
 	public void setDate(String date) {
 		this.dateOfSos = date;
 	}
+
+	public long getId(){return this.id;}
 
 }

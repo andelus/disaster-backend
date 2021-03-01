@@ -20,5 +20,8 @@ public class RescueHelperController {
         return ResponseEntity.ok(rescueHelperRepository.save(rescueHelper));
     }
 
-
+    @PostMapping("/setTimer")
+    public ResponseEntity<Boolean> createRescueHelper(@RequestBody long timer) {
+        return ResponseEntity.ok(true);
+    }
 }
