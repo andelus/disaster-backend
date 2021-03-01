@@ -37,7 +37,7 @@ public class Victim {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column
+	@Column(unique = true)
 	private String username;
 
 	private String type;

@@ -44,17 +44,16 @@ public class JwtUserDetailsService implements UserDetailsService {
 	
 	public RescueHelper saveRescueHelper(RescueHelperDB user) {
 		RescueHelper newUser = new RescueHelper();
-		newUser.setName(user.getName());
-		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setUsername(user.getUsername());
-		newUser.setEmail(user.getEmail());
+		newUser.setPassword(bcryptEncoder.encode(user.getPassword()));
 		newUser.setBirthday(user.getBirthday());
-		newUser.setAge(user.getAge());
 		newUser.setDepartment(user.getDepartment());
+		newUser.setAge(user.getAge());
 		newUser.setDescription(user.getDescription());
+		newUser.setEmail(user.getEmail());
 		newUser.setPhoneNumber(user.getPhoneNumber());
 		newUser.setProfession(user.getProfession());
-
+		newUser.setName(user.getName());
 		return userDao.save(newUser);
 	}
 	public Victim saveVictim(VictimDB user) {

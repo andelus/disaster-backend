@@ -19,4 +19,6 @@ public class RescueHelperController {
     public ResponseEntity<RescueHelper> createRescueHelper(@RequestBody RescueHelper rescueHelper) {
         return ResponseEntity.ok(rescueHelperRepository.save(rescueHelper));
     }
+
+
 }
