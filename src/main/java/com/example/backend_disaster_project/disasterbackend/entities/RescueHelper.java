@@ -3,14 +3,17 @@ package com.example.backend_disaster_project.disasterbackend.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "rescueHelpers")
-public class RescueHelper {
+public class RescueHelper implements Serializable {
+    private static final long serialVersionUID = -8836056693631358014L;
 
     public RescueHelper() {
 
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +47,15 @@ public class RescueHelper {
     @JsonIgnore
     private String password;
 
+
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;

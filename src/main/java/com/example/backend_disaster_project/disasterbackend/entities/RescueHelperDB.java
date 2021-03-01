@@ -26,6 +26,10 @@ public class RescueHelperDB {
 		this.profession = profession;
 	}
 
+    public RescueHelperDB() {
+
+    }
+
 	public String getName() {
 		return name;
 	}

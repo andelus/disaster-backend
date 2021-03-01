@@ -1,12 +1,13 @@
 package com.example.backend_disaster_project.disasterbackend.service;
 
-import com.example.backend_disaster_project.disasterbackend.entities.RescueHelper;
-import com.example.backend_disaster_project.disasterbackend.entities.RescueHelperDB;
-import com.example.backend_disaster_project.disasterbackend.entities.Victim;
-import com.example.backend_disaster_project.disasterbackend.entities.VictimDB;
+import com.example.backend_disaster_project.disasterbackend.config.JwtTokenUtil;
+import com.example.backend_disaster_project.disasterbackend.entities.*;
+import com.example.backend_disaster_project.disasterbackend.repositories.PasswordResetTokenRepository;
 import com.example.backend_disaster_project.disasterbackend.repositories.RescueHelperRepository;
 import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -27,6 +28,13 @@ public class JwtUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private PasswordEncoder bcryptEncoder;
+	@Autowired
+	private JwtTokenUtil jwtUtils;
+
+	@Autowired
+	private PasswordResetTokenRepository passwordTokenRepository;
+
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -76,5 +84,80 @@ public class JwtUserDetailsService implements UserDetailsService {
 		newUser.setType(user.getType());
 		newUser.setTel(user.getTel());
 		return userDao1.save(newUser);
+	}
+	public RescueHelperDB getUserByEmail(String email) {
+
+		RescueHelper rescueHelper = userDao.findByEmail(email);
+		System.out.print(rescueHelper.getEmail());
+		RescueHelperDB rescueDB = new RescueHelperDB();
+		rescueDB.setEmail(rescueHelper.getEmail());
+		rescueDB.setPassword(rescueHelper.getPassword());
+		rescueDB.setUsername(rescueHelper.getUsername());
+		rescueDB.setDescription(rescueHelper.getDescription());
+		rescueDB.setEmail(rescueHelper.getEmail());
+		rescueDB.setName(rescueHelper.getName());
+		System.out.print(rescueDB);
+		return rescueDB;
+	}
+
+
+
+	public String getRequestPasswordToken(RescueHelper userDto) {
+		// generate password reset token
+		return jwtUtils.generateToken1(userDto.getId() + userDto.getEmail());
+	}
+
+	// save password reset token to 'PasswordResetToken' database
+
+	public void saveRequestPasswordToken(String token, RescueHelper userDto) {
+		// map to UserEntity
+		//Victim userEntity = mapper.map(userDto, Victim.class);
+		RescueHelper newUser = new RescueHelper();
+		newUser.setUsername(userDto.getUsername());
+		newUser.setPassword(bcryptEncoder.encode(userDto.getPassword()));
+
+		newUser.setDescription(userDto.getDescription());
+		newUser.setEmail(userDto.getEmail());
+
+		newUser.setName(userDto.getName());
+
+
+		// save token to repository
+		PasswordResetTokenEntity passwordResetTokenEntity = new PasswordResetTokenEntity();
+		passwordResetTokenEntity.setToken(token);
+		passwordResetTokenEntity.setUserDetails(userDto);
+		passwordTokenRepository.save(passwordResetTokenEntity);
+	}
+
+	// update password
+
+	public void resetPassword(String token, String password) throws InvalidTokenException {
+		if (jwtUtils.isTokenExpired(token)) {
+			throw new InvalidTokenException("reset.password.token.expired", "token=" + token);
+		}
+
+		PasswordResetTokenEntity passwordResetTokenEntity = passwordTokenRepository.findByToken(token)
+				.orElseThrow(() -> {
+					try {
+						throw new InvalidTokenException("invalid.token", "token=" + token);
+					} catch (InvalidTokenException e) {
+						e.printStackTrace();
+					}
+					return null;
+				});
+
+		// encode new password
+		String encodedPassword = bcryptEncoder.encode(password);
+
+		// Update User password in database
+		RescueHelper userEntity = passwordResetTokenEntity.getUserDetails();
+		System.out.println(userEntity);
+		userEntity.setPassword(encodedPassword);
+		userDao.save(userEntity);
+
+		// Remove Password Reset token from database
+		//	passwordTokenRepository.delete(passwordResetTokenEntity);
+//
+//		log.info("PasswordReset -- pwd.rst -- userId={}", userEntity.getUserId());
 	}
 }

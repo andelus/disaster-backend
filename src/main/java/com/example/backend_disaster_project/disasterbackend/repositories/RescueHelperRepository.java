@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface RescueHelperRepository extends JpaRepository<RescueHelper, Long> {
     RescueHelper findByUsername(String username);
     boolean existsByUsername(String username);
+    RescueHelper findByEmail(String email);
 
 }
