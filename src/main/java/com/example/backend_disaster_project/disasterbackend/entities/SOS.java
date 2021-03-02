@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 public class SOS {
 
-    public SOS(double latitude, double longtitude, String date, String type) {
+    public SOS(double latitude, double longtitude, String date, String type, int timer) {
         super();
         this.latitude = latitude;
         this.longtitude = longtitude;
         this.dateOfSos = date;
         this.type = type;
-
+        this.timer = timer;
     }
 
     public SOS() {
@@ -27,6 +27,18 @@ public class SOS {
     private double longtitude;
     private String type;
     private String dateOfSos;
+
+
+
+    private int timer;
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public void setTimer(int timer) {
+        this.timer = timer;
+    }
 
     public String getType() {
         return type;
