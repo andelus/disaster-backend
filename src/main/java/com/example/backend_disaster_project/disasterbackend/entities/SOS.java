@@ -32,6 +32,8 @@ public class SOS {
 
     private int timer;
 
+    public long getId(){return this.id;}
+
     public int getTimer() {
         return timer;
     }
