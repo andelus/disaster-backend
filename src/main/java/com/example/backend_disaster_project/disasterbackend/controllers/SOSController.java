@@ -2,41 +2,38 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 
 
 import com.example.backend_disaster_project.disasterbackend.entities.SOS;
-import com.example.backend_disaster_project.disasterbackend.entities.Victim;
 import com.example.backend_disaster_project.disasterbackend.repositories.SosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/")
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SOSController {
 
-	@Autowired
-	private SosRepository sosRepository;
-	
-	@GetMapping("/sos")
-	public Iterable<SOS> getSOS(){
-		return this.sosRepository.findAll();
-	}
+    @Autowired
+    private SosRepository sosRepository;
 
-	@PostMapping("/sos")
-	public SOS createSOS(@RequestBody SOS sos) {
-		return sosRepository.save(sos);
-	}
+    @GetMapping("/sos")
+    public Iterable<SOS> getSOS() {
+        return this.sosRepository.findAll();
+    }
 
-	@DeleteMapping("/deleteSos")
-	public void delete(){
-		sosRepository.deleteAll();
-	}
+    @PostMapping("/sos")
+    public SOS createSOS(@RequestBody SOS sos) {
+        return sosRepository.save(sos);
+    }
 
-	@DeleteMapping("/sos/delete/{latitude}")
-	public void delete(@PathVariable Double latitude){
-		SOS sos = sosRepository.findByLatitude(latitude);
-		sosRepository.delete(sos);
-	}
-	
+    @DeleteMapping("/deleteSos")
+    public void delete() {
+        sosRepository.deleteAll();
+    }
+
+    @DeleteMapping("/sos/delete/{latitude}")
+    public void delete(@PathVariable Double latitude) {
+        SOS sos = sosRepository.findByLatitude(latitude);
+        sosRepository.delete(sos);
+    }
+
 }

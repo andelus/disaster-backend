@@ -7,13 +7,13 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 
 @SpringBootApplication
 public class DisasterBackendApplication extends SpringBootServletInitializer {
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(DisasterBackendApplication.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(DisasterBackendApplication.class);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(DisasterBackendApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DisasterBackendApplication.class, args);
+    }
 
 }

@@ -5,9 +5,8 @@ import com.example.backend_disaster_project.disasterbackend.entities.SOS;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 
 @Repository
 public interface SosRepository extends JpaRepository<SOS, Long> {
-SOS findByLatitude(Double latitude);
+    SOS findByLatitude(Double latitude);
 }

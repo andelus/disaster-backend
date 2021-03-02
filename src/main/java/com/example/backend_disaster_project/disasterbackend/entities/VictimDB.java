@@ -5,8 +5,8 @@ import java.util.Date;
 
 public class VictimDB {
 
-    public VictimDB(String username,String password,String city, int nrStreet, String street, String name, String email, long tel, String action,
-                  String message, Date date, String messageToVictim,String bloodType,String allergy,String description,String dateOfBirth,String type) {
+    public VictimDB(String username, String password, String city, int nrStreet, String street, String name, String email, long tel, String action,
+                    String message, Date date, String messageToVictim, String bloodType, String allergy, String description, String dateOfBirth, String type) {
         super();
         this.password = password;
         this.username = username;
@@ -27,6 +27,7 @@ public class VictimDB {
         this.type = type;
 
     }
+
     private String username;
     private String password;
     private String type;
@@ -68,6 +69,7 @@ public class VictimDB {
     public void setType(String type) {
         this.type = type;
     }
+
     public String getBloodType() {
         return bloodType;
     }

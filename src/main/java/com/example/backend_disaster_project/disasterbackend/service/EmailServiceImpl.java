@@ -18,31 +18,27 @@ import javax.mail.internet.MimeMessage;
 
 
 @Service
-public class EmailServiceImpl implements EmailService{
+public class EmailServiceImpl implements EmailService {
 
     @Autowired
     private Configuration configuration;
 
     @Autowired
-    private  JavaMailSender javaMailSender;
+    private JavaMailSender javaMailSender;
     @Autowired
-    private  EmailProperties emailProperties;
+    private EmailProperties emailProperties;
 
     @Value("${client.url}")
     String clientUrl;
 
 
-
     @Override
     @Async("threadPoolEmailTask")
     public void sendPasswordResetEmail(RescueHelper userDto, String token) {
-        // prepare email meta data
         String recipientAddress = userDto.getEmail();
         String subject = emailProperties.getSubjectPasswordReset();
-        // confirmationUrl - front end url, shows form for password reset.
         String confirmationUrl = emailProperties.getUrlPasswordReset() + token;
         String body = confirmationUrl;
-        // send email
         sendEmail(recipientAddress, subject, body);
     }
 

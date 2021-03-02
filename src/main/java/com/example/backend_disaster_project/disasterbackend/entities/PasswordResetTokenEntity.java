@@ -9,8 +9,8 @@ public class PasswordResetTokenEntity implements Serializable {
     private static final long serialVersionUID = 2035000457464505430L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO, generator="password_reset_sequence_generator")
-    @SequenceGenerator(name="password_reset_sequence_generator", sequenceName="password_reset_sequence")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "password_reset_sequence_generator")
+    @SequenceGenerator(name = "password_reset_sequence_generator", sequenceName = "password_reset_sequence")
     @Column(updatable = false, nullable = false)
     private long id;
 

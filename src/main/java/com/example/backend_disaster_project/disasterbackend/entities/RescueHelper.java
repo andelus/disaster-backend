@@ -14,12 +14,11 @@ public class RescueHelper implements Serializable {
 
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    public RescueHelper(String username,String password,String name, String email, String birthday, int age, String department, String description, long phoneNumber, String profession) {
+    public RescueHelper(String username, String password, String name, String email, String birthday, int age, String department, String description, long phoneNumber, String profession) {
         this.name = name;
         this.email = email;
         this.birthday = birthday;
@@ -29,7 +28,7 @@ public class RescueHelper implements Serializable {
         this.phoneNumber = phoneNumber;
         this.profession = profession;
         this.username = username;
-        this.password=password;
+        this.password = password;
     }
 
     private String name;
@@ -46,7 +45,6 @@ public class RescueHelper implements Serializable {
     @Column
     @JsonIgnore
     private String password;
-
 
 
     public long getId() {

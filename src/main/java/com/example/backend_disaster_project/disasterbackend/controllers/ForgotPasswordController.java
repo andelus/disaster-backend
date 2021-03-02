@@ -2,7 +2,6 @@ package com.example.backend_disaster_project.disasterbackend.controllers;
 
 import com.example.backend_disaster_project.disasterbackend.entities.*;
 import com.example.backend_disaster_project.disasterbackend.repositories.RescueHelperRepository;
-import com.example.backend_disaster_project.disasterbackend.repositories.VictimRepository;
 import com.example.backend_disaster_project.disasterbackend.service.EmailService;
 import com.example.backend_disaster_project.disasterbackend.service.InvalidTokenException;
 import com.example.backend_disaster_project.disasterbackend.service.JwtUserDetailsService;
@@ -15,7 +14,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api")
 public class ForgotPasswordController {
 
@@ -34,7 +33,6 @@ public class ForgotPasswordController {
         RescueHelper userDto = userRepo.findByEmail(passwordResetRequestModel.getEmail());
         // get token
 
-
         String token = authService.getRequestPasswordToken(userDto);
 
         // save token
@@ -43,16 +41,15 @@ public class ForgotPasswordController {
         // send email
         emailService.sendPasswordResetEmail(userDto, token);
 
-//        log.info("RequestPasswordReset -- request.pwd.rst -- userId={}", userDto.getUserId());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PostMapping(path = "/password-reset")
-    public ResponseEntity<Void> resetPassword(@RequestBody @Valid ResetPasswordModel passwordResetModel) throws InvalidTokenException {
+    public ResponseEntity resetPassword(@RequestBody @Valid ResetPasswordModel passwordResetModel) throws InvalidTokenException {
 
         authService.resetPassword(passwordResetModel.getToken(),
                 passwordResetModel.getPassword());
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok(passwordResetModel.getToken());
     }
 
 
