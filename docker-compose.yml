@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  spring-boot:
+    build: ./containers/api
+    container_name: disaster-backend
+    depends_on:
+      - postgres
+    ports:
+      -  8080:8080
+    volumes:
+      - ./:/application
+    command: ['/startApp.sh']
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      POSTGRES_DB: victims_db
+    volumes:
+       - postgres:/data/postgre
+        
+volumes:
+    postgres:
+    
