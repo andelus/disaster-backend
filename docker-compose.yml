@@ -12,16 +12,26 @@ services:
       - ./:/application
     command: ['/startApp.sh']
   postgres:
-    image: postgres:latest
+    image: postgres
+    container_name: disaster-postgres
     ports:
       - 5432:5432
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: toor
       POSTGRES_DB: victims_db
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: disaster-pgadmin
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: toor
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     volumes:
-       - postgres:/data/postgre
-        
+       - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+
 volumes:
-    postgres:
-    
+  pgadmin:
